@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍길동 홈페이지 - 학습사항</title>
+    <link rel="stylesheet" href="mportfolio.css">
+</head>
+<body>
+
+    <header>
+        <h1>홍길동 홈페이지</h1>
+    </header>
+
+    <nav>
+        <a href="mintro.html">소개</a>
+        <a href="minfo.html">인적</a>
+        <a href="mstudy.html" class="active">학습</a>
+        <a href="mcareer.html">경력</a>
+    </nav>
+
+    <div class="container">
+        <div class="section-title">프로젝트</div>
+        
+        <ul class="bullet-list">
+            <li>레고 NXT 실습</li>
+        </ul>
+
+        <!-- 동영상 / 이미지 플레이어 영역 (사진 속 컨트롤러 형태 반영) -->
+        <div style="background-color: #000; position: relative; border-radius: 4px; overflow: hidden; margin: 10px 0;">
+            <img src="https://via.placeholder.com/300x180/222222/ffffff?text=LEGO+NXT+Robot" alt="레고 NXT 실습" style="width: 100%; display: block; opacity: 0.85;">
+            <!-- 비디오 컨트롤 막대 시뮬레이션 -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                <span style="color: white; font-size: 0.8rem;">▶</span>
+                <div style="flex: 1; height: 5px; background: #555; border-radius: 3px; position: relative;">
+                    <div style="width: 60%; height: 100%; background: #00bcd4; border-radius: 3px;"></div>
+                </div>
+                <span style="color: white; font-size: 0.8rem;">⛶</span>
+            </div>
+        </div>
+
+        <div class="section-title">자격증</div>
+        <ul class="bullet-list">
+            <li>정보처리기사 1급</li>
+            <li>DAP 자격증</li>
+        </ul>
+
+        <div class="section-title">수상</div>
+        <ul class="bullet-list">
+            <li>교내 소프트웨어경진대회 금상</li>
+            <li>포트폴리오 경진대회 장려상</li>
+        </ul>
+    </div>
+
+    <footer>
+        Copyright © 2014 Hong, GilDong
+    </footer>
+
+</body>
+</html>

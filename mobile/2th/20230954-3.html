@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어 쿼리 정의</title>
+    <style>
+        /* 기본 스타일 설정 */
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: '맑은 고딕', sans-serif;
+            transition: background-color 0.3s ease; /* 색상 전환 효과 */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        /* 1. 기본 스타일 (721px 이상일 때 적용 - 데스크톱 / 큰 화면)
+           사진의 (3) 보라색 배경 */
+        body {
+            background-color: #8A5BB3; /* 보라색 계열 */
+            color: #ffffff;
+        }
+
+        /* 2. 화면 너비가 720px 이하일 때 (501px ~ 720px - 태블릿 / 중간 화면)
+           사진의 (2) 연연두색 배경 */
+        @media screen and (max-width: 720px) {
+            body {
+                background-color: #C1E899; /* 연한 연두색 계열 */
+                color: #2D5016; /* 읽기 편하도록 텍스트 색상 변경 */
+            }
+        }
+
+        /* 3. 화면 너비가 500px 이하일 때 (모바일 / 작은 화면)
+           사진의 (1) 진한 연두색(진록색) 배경 */
+        @media screen and (max-width: 500px) {
+            body {
+                background-color: #FFA300; /* 조금 더 진한 연두/녹색 계열 */
+                color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>미디어 쿼리</h1>
+    <p>반응형 웹에 대한 예</p>
+
+</body>
+</html>

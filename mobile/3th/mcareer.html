@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍길동 홈페이지 - 경력사항</title>
+    <link rel="stylesheet" href="mportfolio.css">
+</head>
+<body>
+
+    <header>
+        <h1>홍길동 홈페이지</h1>
+    </header>
+
+    <nav>
+        <a href="mintro.html">소개</a>
+        <a href="minfo.html">인적</a>
+        <a href="mstudy.html">학습</a>
+        <a href="mcareer.html" class="active">경력</a>
+    </nav>
+
+    <div class="container">
+        <div class="section-title">세미나(연수)</div>
+        
+        <ul class="bullet-list">
+            <li>2012. 4 빅 데이터 응용 세미나 참석</li>
+            <li>2013. 3~6 IT 멘토링 사업 참여</li>
+        </ul>
+
+        <!-- 세미나/연수 3장 썸네일 이미지 박스 (사진 속 3개 썸네일 구조 반영) -->
+        <div style="display: flex; gap: 6px; margin: 8px 0 15px 0;">
+            <img src="bell.jpg" alt="세미나 1" style="flex: 1; height: 260px; border: 1px solid #ccc; object-fit: cover;">
+            <img src="bell1.jpg" alt="세미나 2" style="flex: 1; height: 260px; border: 1px solid #ccc; object-fit: cover;">
+            <img src="bell2.jpg" alt="세미나 3" style="flex: 1; height: 260px; border: 1px solid #ccc; object-fit: cover;">
+        </div>
+
+        <div class="section-title">인턴쉽</div>
+        <ul class="bullet-list">
+            <li>2013.7~8 하계 인턴쉽 참여(터치스케일)</li>
+        </ul>
+
+        <div class="section-title">봉사</div>
+        <ul class="bullet-list">
+            <li>2011.7 농어촌 봉사활동</li>
+            <li>2012.8 취약계층 IT 방문교육서비스 참여</li>
+        </ul>
+
+        <div style="margin-top: 20px;">
+            <div class="section-title">참조링크</div>
+            <div class="link-group">
+                <a href="https://m.naver.com" target="_blank" class="link-btn">NAVER</a>
+                <a href="https://www.google.com" target="_blank" class="link-btn">Google</a>
+                <a href="https://m.daum.net" target="_blank" class="link-btn">Daum</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Copyright © 2014 Hong, GilDong
+    </footer>
+
+</body>
+</html>
