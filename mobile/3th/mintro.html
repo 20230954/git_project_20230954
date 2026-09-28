@@ -3,39 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홍길동 홈페이지 - 자기소개</title>
+    <title>포트폴리오</title>
     <link rel="stylesheet" href="mportfolio.css">
+    <style>
+        /* 오른쪽 아래 고정 음악 컨트롤 버튼 스타일 */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 50px;
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .music-btn:hover {
+            background-color: #1b5e20;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1>홍길동 홈페이지</h1>
+        <h1 id="header-title">자기소개</h1>
     </header>
 
-    <nav>
-        <a href="mintro.html" class="active">소개</a>
-        <a href="minfo.html">인적</a>
-        <a href="mstudy.html">학습</a>
-        <a href="mcareer.html">경력</a>
-        <a href="idea.html">아이디어</a>
+    <!-- nav 버튼 클릭 시 loadPage() 함수를 호출해 화면 부분만 불러옵니다 -->
+    <nav id="main-nav">
+        <a href="mintro.html" class="active" onclick="loadPage(event, 'mintro.html', '자기소개')">소개</a>
+        <a href="minfo.html" onclick="loadPage(event, 'minfo.html', '인적')">인적</a>
+        <a href="mstudy.html" onclick="loadPage(event, 'mstudy.html', '학습')">학습</a>
+        <a href="mcareer.html" onclick="loadPage(event, 'mcareer.html', '경력')">경력</a>
+        <a href="idea.html" onclick="loadPage(event, 'idea.html', '아이디어')">아이디어</a>
+        <a href="map.html" onclick="loadPage(event, 'map.html', '지도')">지도</a>
+        <a href="sns.html" onclick="loadPage(event, 'sns.html', 'SNS')">SNS</a>
     </nav>
 
-    <div class="container">
-        <div class="section-title">자기소개</div>
-        
-        <div style="display: flex; gap: 12px; margin-top: 10px;">
-            <img src="bell.jpg" alt="홍길동 증명사진" style="width: 90px; height: 110px; border: 1px solid #999; flex-shrink: 0;">
-            <div style="font-size: 0.85rem; line-height: 1.45; text-align: justify; color: #333;">
-                저는 한국대학교 컴퓨터공학과를 졸업하고 모바일 컴퓨팅 관련 분야에 관심을 갖고 있는 홍길동입니다. 평소 프로그래밍을 즐겨하였고 특히, 웹 기술 관련하여 XML과 jQuery, jQuery Mobile, Phonegap 등에 관심이 많고 다수 개발 경험이 있습니다. 모바일 게임 관련 업체에서 인턴쉽을 수행하였으며 데이터베이스 모델링과 튜닝에도 깊은 관심을 가지고 연구하였으며 데이터베이스진흥원에서 주관하는 데이터베이스 관련 공인 자격증도 취득하였습니다. 항상 어떤 환경에서도 최선을 다하고 즐기는 마음으로 열심히 일하고자 합니다.
+    <!-- 다른 페이지로 이동해도 재생 상태가 유지되도록 메인 틀 밖에 오디오 위치 -->
+    <div id="content-area">
+        <div class="container">
+            <div class="section-title">자기소개</div>
+            
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <img src="bell.jpg" alt="홍길동 증명사진" style="width: 90px; height: 110px; border: 1px solid #999; flex-shrink: 0;">
+                <div style="font-size: 0.85rem; line-height: 1.45; text-align: justify; color: #333;">
+                    저는 한국대학교 컴퓨터공학과를 졸업하고 모바일 컴퓨팅 관련 분야에 관심을 갖고 있는 홍길동입니다. 평소 프로그래밍을 즐겨하였고 특히, 웹 기술 관련하여 XML과 jQuery, jQuery Mobile, Phonegap 등에 관심이 많고 다수 개발 경험이 있습니다. 모바일 게임 관련 업체에서 인턴쉽을 수행하였으며 데이터베이스 모델링과 튜닝에도 깊은 관심을 가지고 연구하였으며 데이터베이스진흥원에서 주관하는 데이터베이스 관련 공인 자격증도 취득하였습니다. 항상 어떤 환경에서도 최선을 다하고 즐기는 마음으로 열심히 일하고자 합니다.
+                </div>
             </div>
-        </div>
 
-        <div style="margin-top: 20px;">
-            <div class="section-title">참조링크</div>
-            <div class="link-group">
-                <a href="https://m.naver.com" target="_blank" class="link-btn">NAVER</a>
-                <a href="https://www.google.com" target="_blank" class="link-btn">Google</a>
-                <a href="https://m.daum.net" target="_blank" class="link-btn">Daum</a>
+            <div style="margin-top: 20px;">
+                <div class="section-title">참조링크</div>
+                <div class="link-group">
+                    <a href="https://m.naver.com" target="_blank" class="link-btn">NAVER</a>
+                    <a href="https://www.google.com" target="_blank" class="link-btn">Google</a>
+                    <a href="https://m.daum.net" target="_blank" class="link-btn">Daum</a>
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +76,101 @@
     <footer>
         Copyright © 2014 Hong, GilDong
     </footer>
+
+    <!-- 오른쪽 아래 고정 음악 컨트롤 버튼 -->
+    <button id="musicToggleBtn" class="music-btn">
+        <span id="musicIcon">🎵</span>
+        <span id="musicText">음악 멈춤</span>
+    </button>
+
+    <!-- 배경음악 오디오 -->
+    <audio id="bgm" src="nature.mp3" loop></audio>
+
+    <script>
+        // 1. 페이지 교체 함수 (음악이 끊기지 않게 화면 내용만 가져옴)
+        function loadPage(event, pageUrl, title) {
+            if (event) event.preventDefault();
+
+            fetch(pageUrl)
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const newContent = doc.querySelector('.container');
+
+                    if (newContent) {
+                        document.getElementById('content-area').innerHTML = newContent.outerHTML;
+                    } else {
+                        document.getElementById('content-area').innerHTML = data;
+                    }
+
+                    if (title) document.getElementById('header-title').textContent = title;
+
+                    // 활성화된 메뉴 탭 표시 변경
+                    const navLinks = document.querySelectorAll('#main-nav a');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === pageUrl) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                })
+                .catch(err => console.error('페이지 불러오기 실패:', err));
+        }
+
+        // 2. 음악 관련 컨트롤 스크립트
+        window.addEventListener('DOMContentLoaded', () => {
+            const bgm = document.getElementById('bgm');
+            const toggleBtn = document.getElementById('musicToggleBtn');
+            const musicIcon = document.getElementById('musicIcon');
+            const musicText = document.getElementById('musicText');
+
+            function updateButtonUI() {
+                if (bgm.paused) {
+                    musicIcon.textContent = '▶️';
+                    musicText.textContent = '음악 틀기';
+                } else {
+                    musicIcon.textContent = '⏸️';
+                    musicText.textContent = '음악 멈춤';
+                }
+            }
+
+            function toggleMusic(e) {
+                if (e) e.stopPropagation();
+                if (bgm.paused) {
+                    bgm.play();
+                } else {
+                    bgm.pause();
+                }
+                updateButtonUI();
+            }
+
+            toggleBtn.addEventListener('click', toggleMusic);
+
+            // 자동 재생 시도
+            const playPromise = bgm.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    updateButtonUI();
+                }).catch(() => {
+                    updateButtonUI();
+
+                    const playOnInteraction = () => {
+                        bgm.play().then(() => {
+                            updateButtonUI();
+                        });
+                        document.removeEventListener('click', playOnInteraction);
+                        document.removeEventListener('touchstart', playOnInteraction);
+                    };
+
+                    document.addEventListener('click', playOnInteraction);
+                    document.addEventListener('touchstart', playOnInteraction);
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
