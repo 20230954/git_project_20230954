@@ -162,8 +162,8 @@ class ExampleUnitTest {
             for (j in 5..10) {
                 print("$i * $j = ${i * j}\t")
             }
+            println()
         }
-        println()
     }
 
             }
