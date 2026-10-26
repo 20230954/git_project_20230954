@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <title>소통 게시판 - Mystical Tarot Reading</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#fdf8e6',
+                            200: '#f8eebe',
+                            300: '#f3e5ab',
+                            400: '#e6ca65',
+                            500: '#d4af37',
+                            600: '#aa8c2c',
+                            700: '#806820',
+                        },
+                        mystic: {
+                            950: '#070512',
+                            900: '#0B091A',
+                            800: '#14112B',
+                            700: '#1D1A3C',
+                            600: '#2A2654',
+                            500: '#3D3875',
+                            400: '#5852A3',
+                        }
+                    },
+                    fontFamily: {
+                        batang: ['Gowun Batang', 'serif'],
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 공통 스타일 시트 연결 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 햄버거바 드롭다운 메뉴 스타일 (클릭 유지형) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 8px;
+            background-color: #14112B;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 50;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .dropdown-content.show {
+            display: block;
+        }
+        .dropdown-content a {
+            color: #cbd5e1;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: #1D1A3C;
+            color: #f8eebe;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col justify-between">
+
+    <!-- Starry Background -->
+    <div id="stars" class="stars-container"></div>
+
+    <!-- Header / Navbar Controls -->
+    <header class="relative z-20 container mx-auto px-4 pt-6 pb-2 flex flex-wrap items-center justify-between border-b border-mystic-800/80">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="location.href='index.html'">
+            <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-500/50 flex items-center justify-center text-gold-300 shadow">
+                <i class="fa-solid fa-sparkles text-lg"></i>
+            </div>
+            <div>
+                <span class="font-cinzel text-lg font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gold-200 via-gold-400 to-amber-300">
+                    MYSTICAL TAROT
+                </span>
+                <p class="text-[10px] text-slate-400 font-batang tracking-wider">영혼의 울림과 신비로운 직관</p>
+            </div>
+        </div>
+
+        <!-- Control Buttons: 메인으로 가기 버튼 & 우측 햄버거 메뉴 -->
+        <div class="flex items-center gap-3 mt-3 sm:mt-0">
+            <button onclick="location.href='index.html'" class="px-3 py-1.5 rounded-full bg-mystic-800/80 border border-mystic-600 hover:border-gold-400 text-slate-300 text-xs flex items-center gap-2 transition backdrop-blur">
+                <i class="fa-solid fa-house"></i>
+                <span>메인으로</span>
+            </button>
+
+            <!-- 햄버거바 드롭다운 메뉴 -->
+            <div class="dropdown">
+                <button onclick="toggleDropdown(event)" class="px-3.5 py-1.5 rounded-full bg-mystic-800/80 border border-gold-500/30 hover:border-gold-400 text-gold-300 text-xs flex items-center gap-2 transition backdrop-blur shadow cursor-pointer">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                    <span>메뉴</span>
+                </button>
+                <div id="dropdown-menu" class="dropdown-content">
+                    <a href="index.html"><i class="fa-solid fa-house mr-1.5"></i> 홈으로</a>
+                    <a href="map.html"><i class="fa-solid fa-map-location-dot mr-1.5"></i> 오시는 길 (지도)</a>
+                    <a href="SNS.html"><i class="fa-solid fa-share-nodes mr-1.5"></i> SNS 경로</a>
+                    <a href="talk.html" class="text-gold-300 font-bold bg-mystic-700/50"><i class="fa-solid fa-comments mr-1.5"></i> 소통 게시판</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 container mx-auto px-4 py-10 max-w-3xl flex-grow flex flex-col items-center">
+        <div class="w-full bg-mystic-800/80 backdrop-blur-md border border-gold-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl mb-8">
+            
+            <div class="text-center mb-6">
+                <div class="inline-block p-2 rounded-full border border-gold-500/30 mb-3 bg-mystic-900/60 backdrop-blur">
+                    <span class="font-cinzel text-gold-400 text-xs tracking-widest px-3">✨ COMMUNITY BOARD ✨</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold font-batang text-transparent bg-clip-text bg-gradient-to-r from-gold-200 via-gold-400 to-amber-200 tracking-wide mb-2">
+                    소통 게시판
+                </h1>
+                <p class="text-slate-400 text-xs sm:text-sm font-light">
+                    타로 리딩 후기나 자유로운 이야기를 남겨주세요.
+                </p>
+            </div>
+
+            <!-- 글 작성 폼 -->
+            <form id="post-form" onsubmit="handlePostSubmit(event)" class="space-y-4 bg-mystic-900/60 p-4 sm:p-6 rounded-xl border border-gold-500/20 mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-batang text-gold-300 mb-1">작성자</label>
+                        <input type="text" id="writer-name" required placeholder="이름 또는 닉네임" 
+                               class="w-full bg-mystic-950 border border-mystic-600 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-gold-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-batang text-gold-300 mb-1">글 제목</label>
+                        <input type="text" id="post-title" required placeholder="제목을 입력하세요" 
+                               class="w-full bg-mystic-950 border border-mystic-600 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-gold-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-batang text-gold-300 mb-1">내용</label>
+                    <textarea id="post-content" required rows="3" placeholder="타로 리딩 소감이나 자유로운 이야기를 적어주세요..." 
+                              class="w-full bg-mystic-950 border border-mystic-600 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-gold-400 resize-none"></textarea>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="py-2.5 px-6 rounded-lg bg-gradient-to-r from-gold-600 to-amber-500 text-mystic-950 font-bold font-batang text-xs transition shadow hover:brightness-110 cursor-pointer">
+                        <i class="fa-solid fa-pen-to-square mr-1"></i> 글 등록하기
+                    </button>
+                </div>
+            </form>
+
+            <!-- 게시글 목록 영역 -->
+            <div>
+                <h2 class="text-gold-300 font-batang font-bold text-base mb-4 flex items-center gap-2 border-b border-mystic-700 pb-2">
+                    <i class="fa-solid fa-list-ul text-gold-400"></i> 전체 글 목록
+                </h2>
+                <div id="posts-container" class="space-y-4">
+                    <!-- 자바스크립트로 동적 생성됨 -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-6 text-xs text-slate-500 border-t border-mystic-800/80 bg-mystic-950/50">
+        <p>© 2026 Mystical Tarot Reading • 신비로운 영혼의 지혜</p>
+    </footer>
+
+    <!-- 스크립트 로직 -->
+    <script>
+        // 드롭다운 메뉴 토글
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('show');
+            }
+        }
+
+        window.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdown-menu');
+            if (menu && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // 별 배경 동적 생성
+        window.addEventListener('DOMContentLoaded', () => {
+            const starsContainer = document.getElementById('stars');
+            if (starsContainer) {
+                starsContainer.innerHTML = '';
+                for (let i = 0; i < 60; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    const size = Math.random() * 2.5 + 1;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+                    star.style.setProperty('--delay', `${Math.random() * 3}s`);
+                    starsContainer.appendChild(star);
+                }
+            }
+            loadPosts();
+        });
+
+        // 게시판 기능 (LocalStorage 연동)
+        function loadPosts() {
+            const container = document.getElementById('posts-container');
+            const posts = JSON.parse(localStorage.getItem('tarot_talk_posts')) || [];
+
+            if (posts.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-6">등록된 게시글이 없습니다. 첫 번째 이야기를 남겨보세요!</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            posts.forEach((post, index) => {
+                const postEl = document.createElement('div');
+                postEl.className = "bg-mystic-900/50 border border-gold-500/20 rounded-xl p-4 transition hover:border-gold-500/40 relative";
+                postEl.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-gold-200 font-batang">${escapeHTML(post.title)}</span>
+                        <span class="text-[10px] text-slate-400">${post.date}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-3 whitespace-pre-line leading-relaxed">${escapeHTML(post.content)}</p>
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-mystic-800 pt-2">
+                        <span><i class="fa-solid fa-user-circle text-gold-400 mr-1"></i> ${escapeHTML(post.writer)}</span>
+                        <button onclick="deletePost(${index})" class="text-red-400 hover:text-red-300 transition text-[10px] cursor-pointer">
+                            <i class="fa-solid fa-trash-can mr-1"></i> 삭제
+                        </button>
+                    </div>
+                `;
+                container.appendChild(postEl);
+            });
+        }
+
+        function handlePostSubmit(event) {
+            event.preventDefault();
+            const writer = document.getElementById('writer-name').value.trim();
+            const title = document.getElementById('post-title').value.trim();
+            const content = document.getElementById('post-content').value.trim();
+
+            if (!writer || !title || !content) return;
+
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            const newPost = { writer, title, content, date: dateStr };
+            const posts = JSON.parse(localStorage.getItem('tarot_talk_posts')) || [];
+            
+            posts.unshift(newPost); // 수정 완료: 오타 제거 및 정상 등록 처리
+            localStorage.setItem('tarot_talk_posts', JSON.stringify(posts));
+
+            document.getElementById('post-form').reset();
+            loadPosts();
+        }
+
+        function deletePost(index) {
+            if (confirm("정말 이 게시글을 삭제하시겠습니까?")) {
+                let posts = JSON.parse(localStorage.getItem('tarot_talk_posts')) || [];
+                posts.splice(index, 1);
+                localStorage.setItem('tarot_talk_posts', JSON.stringify(posts));
+                loadPosts();
+            }
+        }
+
+        // 간단한 XSS 방지용 유틸 함수
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+    </script>
+</body>
+</html>

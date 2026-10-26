@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 타로카드 배경 프레임 -->
+  <rect x="8" y="4" width="48" height="56" rx="8" fill="#14112B" stroke="#d4af37" stroke-width="3" />
+  <rect x="12" y="8" width="40" height="48" rx="4" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="2,2" />
+  
+  <!-- 신비로운 초승달 -->
+  <path d="M32 16 C38 16 42 21 42 27 C42 33 38 38 32 38 C35 34 35 20 32 16 Z" fill="#f8eebe" />
+  
+  <!-- 빛나는 작은 별들 -->
+  <path d="M22 22 L23.5 25 L26.5 26.5 L23.5 28 L22 31 L20.5 28 L17.5 26.5 L20.5 25 Z" fill="#d4af37" />
+  <path d="M42 40 L43 42 L45 43 L43 44 L42 46 L41 44 L39 43 L41 42 Z" fill="#f3e5ab" />
+  
+  <!-- 하단 수정 장식 -->
+  <circle cx="32" cy="48" r="3" fill="#d4af37" />
+</svg>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - Mystical Tarot Reading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 300: '#f3e5ab', 400: '#e6ca65', 500: '#d4af37', 600: '#aa8c2c' },
+                        mystic: { 950: '#070512', 900: '#0B091A', 800: '#14112B', 700: '#1D1A3C', 600: '#2A2654' }
+                    },
+                    fontFamily: { batang: ['Gowun Batang', 'serif'], sans: ['Noto Sans KR', 'sans-serif'], cinzel: ['Cinzel', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="min-h-screen relative flex flex-col justify-between">
+    <div id="stars" class="stars-container"></div>
+    <header class="relative z-20 container mx-auto px-4 pt-6 pb-2 flex items-center justify-between border-b border-mystic-800/80">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="location.href='index.html'">
+            <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-500/50 flex items-center justify-center text-gold-300">
+                <i class="fa-solid fa-sparkles text-lg"></i>
+            </div>
+            <span class="font-cinzel text-lg font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-gold-200 via-gold-400 to-amber-300">MYSTICAL TAROT</span>
+        </div>
+        <button onclick="location.href='index.html'" class="px-3 py-1.5 rounded-full bg-mystic-800/80 border border-mystic-600 text-slate-300 text-xs flex items-center gap-2">
+            <i class="fa-solid fa-house"></i> 메인으로
+        </button>
+    </header>
+    <main class="relative z-10 container mx-auto px-4 py-12 max-w-md flex-grow flex flex-col items-center justify-center">
+        <div class="w-full bg-mystic-800/80 backdrop-blur-md border border-gold-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold font-batang text-gold-300 mb-2">로그인</h1>
+                <p class="text-slate-400 text-xs">타로 서비스 이용을 위해 로그인해주세요.</p>
+            </div>
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-batang text-gold-300 mb-1">아이디 (이메일)</label>
+                    <input type="email" id="login-email" required class="w-full bg-mystic-950 border border-mystic-600 rounded-lg px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-gold-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-batang text-gold-300 mb-1">비밀번호</label>
+                    <input type="password" id="login-pw" required class="w-full bg-mystic-950 border border-mystic-600 rounded-lg px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-gold-400">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-gold-600 to-amber-500 text-mystic-950 font-bold font-batang text-sm shadow-lg hover:brightness-110 cursor-pointer">로그인하기</button>
+            </form>
+            <div class="mt-6 text-center text-xs text-slate-400 border-t border-mystic-700/60 pt-4">
+                아직 계정이 없으신가요? <a href="signup.html" class="text-gold-300 font-bold hover:underline ml-1">회원가입</a>
+            </div>
+        </div>
+    </main>
+    <footer class="relative z-10 text-center py-6 text-xs text-slate-500 border-t border-mystic-800/80 bg-mystic-950/50">
+        <p>© 2026 Mystical Tarot Reading</p>
+    </footer>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const pw = document.getElementById('login-pw').value;
+            const users = JSON.parse(localStorage.getItem('tarot_users')) || [];
+            const found = users.find(u => u.email === email && u.pw === pw);
+            if (found) {
+                localStorage.setItem('tarot_logged_in', JSON.stringify(found));
+                alert(`${found.name}님 환영합니다!`);
+                location.href = 'index.html';
+            } else {
+                alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+            }
+        }
+    </script>
+</body>
+</html>

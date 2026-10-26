@@ -1,0 +1,114 @@
+body {
+    background-color: #070512;
+    color: #E2E8F0;
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+/* Starry & Cosmic background animation */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at bottom, #1D1A3C 0%, #070512 100%);
+}
+
+.star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    animation: twinkle var(--duration, 3s) infinite ease-in-out var(--delay, 0s);
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.3); filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)); }
+}
+
+/* Card 3D Flip Styles (크기 고정 및 레이아웃 틀어짐 방지) */
+.card-container {
+    perspective: 1000px;
+    width: 160px;
+    height: 240px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+    .card-container {
+        width: 176px;
+        height: 264px;
+    }
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.card-container.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.card-back {
+    transform: rotateY(0deg);
+}
+
+.card-front {
+    transform: rotateY(180deg);
+}
+
+.card-front.reversed-card {
+    transform: rotateY(180deg) rotate(180deg);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0B091A;
+}
+::-webkit-scrollbar-thumb {
+    background: #3D3875;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #d4af37;
+}
+
+/* Visual Glow effects */
+.gold-glow {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Grid layout card hover effect */
+.grid-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.grid-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    z-index: 50;
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.6);
+    border-color: #f8eebe;
+}
