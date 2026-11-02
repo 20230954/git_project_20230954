@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>벽돌깨기</title>
+<style>
+  * { box-sizing: border-box }
+  body { margin: 0; padding: 20px; background: #101426; color: white; font: 16px system-ui; text-align: center }
+  main { width: min(800px, 100%); margin: auto }
+  header, nav { display: flex; justify-content: space-between; align-items: center; gap: 12px }
+  h1 { margin: 8px 0 16px }
+  canvas { display: block; width: 100%; background: #171d32; border: 1px solid #303750; border-radius: 12px; touch-action: none }
+  nav { margin-top: 12px; color: #b7c0e0; font-size: 14px }
+  button { padding: 10px 18px; border: 0; border-radius: 8px; background: #8d7aff; color: white; font: inherit; cursor: pointer }
+  @media (max-width: 520px) { body { padding: 12px } nav { align-items: stretch; flex-direction: column-reverse } }
+</style>
+<main>
+  <header><h1>벽돌깨기</h1><span>점수 <b id="score">0</b>　목숨 <b id="lives">3</b></span></header>
+  <canvas id="game" width="800" height="500" aria-label="벽돌깨기 게임"></canvas>
+  <nav><span>마우스·터치 또는 ← → 방향키로 패들을 움직이세요</span><button id="start">게임 시작</button></nav>
+</main>
+<script>
+  const c = document.querySelector("#game"), x = c.getContext("2d");
+  const scoreView = document.querySelector("#score"), livesView = document.querySelector("#lives");
+  const paddle = { x: 348, y: 460, w: 104, h: 12 }, ball = { x: 400, y: 448, r: 8, dx: 4, dy: -4 };
+  const bricks = Array.from({ length: 40 }, (_, i) => ({ x: 34 + i % 10 * 74, y: 58 + Math.floor(i / 10) * 29, on: true }));
+  let score = 0, lives = 3, state = "ready", left = false, right = false, last = 0;
+  function draw() {
+    x.clearRect(0, 0, 800, 500);
+    bricks.forEach((b, i) => {
+      if (b.on) { x.fillStyle = ["#ff758f", "#ffae6b", "#ffd166", "#60d6c3"][Math.floor(i / 10)]; x.fillRect(b.x, b.y, 64, 19); }
+    });
+    x.fillStyle = "#c5bbff"; x.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+    x.fillStyle = "white"; x.beginPath(); x.arc(ball.x, ball.y, ball.r, 0, 7); x.fill();
+    if (state !== "play") {
+      x.fillStyle = "#101426c9"; x.fillRect(0, 0, 800, 500);
+      x.fillStyle = "white"; x.font = "bold 28px system-ui"; x.textAlign = "center";
+      x.fillText(state === "win" ? "모든 벽돌을 깼어요!" : state === "over" ? "게임 오버" : "버튼을 눌러 시작하세요", 400, 250);
+    }
+  }
+  function resetBall() { ball.x = paddle.x + paddle.w / 2; ball.y = 448; ball.dx = Math.random() < .5 ? -4 : 4; ball.dy = -4; }
+
+  function start() {
+    if (state === "win" || state === "over") {
+      score = 0; lives = 3; bricks.forEach(b => b.on = true);
+      scoreView.textContent = score; livesView.textContent = lives;
+    }
+    resetBall(); state = "play"; document.querySelector("#start").textContent = "다시 시작"; draw();
+  }
+  function update(dt) {
+    const step = Math.min(dt / 16.7, 2);
+    paddle.x = Math.max(0, Math.min(696, paddle.x + (right - left) * 8 * step));
+    if (state !== "play") return;
+    ball.x += ball.dx * step; ball.y += ball.dy * step;
+    if (ball.x < 8 || ball.x > 792) ball.dx *= -1;
+    if (ball.y < 8) ball.dy = Math.abs(ball.dy);
+    if (ball.dy > 0 && ball.y + 8 >= paddle.y && ball.x >= paddle.x && ball.x <= paddle.x + paddle.w) {
+      ball.dx = (ball.x - paddle.x - 52) / 10; ball.dy = -4;
+    }
+    for (const b of bricks) if (b.on && ball.x > b.x && ball.x < b.x + 64 && ball.y > b.y && ball.y < b.y + 19) {
+      b.on = false; ball.dy *= -1; score += 10; scoreView.textContent = score;
+      if (bricks.every(item => !item.on)) state = "win";
+      break;
+    }
+    if (ball.y > 508) {
+      livesView.textContent = --lives;
+      if (lives) resetBall(); else state = "over";
+    }
+  }
+  function frame(t) { update(t - (last || t)); last = t; draw(); requestAnimationFrame(frame); }
+  function move(e) { paddle.x = (e.offsetX / c.clientWidth) * 800 - paddle.w / 2; }
+  c.addEventListener("pointermove", move); c.addEventListener("pointerdown", move);
+  document.querySelector("#start").addEventListener("click", start);
+  addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") left = true;
+    if (e.key === "ArrowRight") right = true;
+    if (e.key === " " && state !== "play") start();
+  });
+  addEventListener("keyup", e => { if (e.key === "ArrowLeft") left = false; if (e.key === "ArrowRight") right = false; });
+  draw(); requestAnimationFrame(frame);
+</script>
+</html>

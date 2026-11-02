@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <title>구구단 놀이터</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color: #202442;
+      background: #f5f7ff;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 12% 4%, #e8eaff 0, transparent 32rem),
+        radial-gradient(ellipse at 94% 24%, #fff0e7 0, transparent 28rem),
+        #f5f7ff;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #6b67d9;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 58px);
+      letter-spacing: -0.07em;
+      line-height: 1.12;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      color: #72778f;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .hero-emoji {
+      display: grid;
+      width: 104px;
+      height: 104px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid #fff;
+      border-radius: 32px;
+      background: #fff;
+      box-shadow: 0 14px 35px #393b7214;
+      font-size: 52px;
+      transform: rotate(5deg);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 1px solid #e8eaf4;
+      border-radius: 20px;
+      background: #ffffffc9;
+      box-shadow: 0 8px 24px #393b7208;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter,
+    .answer-toggle {
+      min-height: 40px;
+      border: 1px solid #e5e7f2;
+      border-radius: 12px;
+      background: #fff;
+      color: #656a82;
+      cursor: pointer;
+      font-weight: 750;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .filter {
+      min-width: 42px;
+      padding: 0 12px;
+    }
+
+    .filter:hover,
+    .answer-toggle:hover {
+      transform: translateY(-1px);
+    }
+
+    .filter[aria-pressed="true"] {
+      border-color: #6c63e8;
+      background: #6c63e8;
+      color: #fff;
+      box-shadow: 0 5px 12px #6c63e833;
+    }
+
+    .answer-toggle {
+      flex: 0 0 auto;
+      padding: 0 16px;
+      color: #4f49bc;
+    }
+
+    .answer-toggle[aria-pressed="true"] {
+      border-color: #d7d4ff;
+      background: #f1f0ff;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 2px 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .hint {
+      margin: 0;
+      color: #85899e;
+      font-size: 13px;
+    }
+
+    .tables {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .table-card {
+      --accent: #6c63e8;
+      --tint: #f1f0ff;
+      overflow: hidden;
+      border: 1px solid #e8eaf4;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 8px 24px #393b7208;
+      animation: appear 280ms ease both;
+    }
+
+    .table-card:nth-child(4n + 2) {
+      --accent: #e58b50;
+      --tint: #fff3ea;
+    }
+
+    .table-card:nth-child(4n + 3) {
+      --accent: #32a589;
+      --tint: #eaf8f3;
+    }
+
+    .table-card:nth-child(4n + 4) {
+      --accent: #dc6485;
+      --tint: #fff0f4;
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 18px;
+      background: var(--tint);
+    }
+
+    .card-heading h3 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 19px;
+      letter-spacing: -0.04em;
+    }
+
+    .card-heading span {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 750;
+      opacity: 0.8;
+    }
+
+    .equations {
+      display: grid;
+      gap: 0;
+      padding: 9px 18px 12px;
+    }
+
+    .equation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 34px;
+      border-bottom: 1px solid #f0f1f6;
+      color: #555b75;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .equation:last-child {
+      border-bottom: 0;
+    }
+
+    .equation strong {
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .answers-hidden .equation strong {
+      min-width: 28px;
+      border-radius: 7px;
+      background: var(--tint);
+      color: transparent;
+      user-select: none;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 48px 20px;
+      border: 1px dashed #dfe1ed;
+      border-radius: 20px;
+      background: #ffffffa6;
+      color: #72778f;
+      text-align: center;
+    }
+
+    .footer-note {
+      margin: 22px 0 0;
+      color: #85899e;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .tables {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100% - 28px, 460px);
+        padding-top: 32px;
+      }
+
+      .hero {
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .hero-emoji {
+        width: 68px;
+        height: 68px;
+        border-radius: 22px;
+        font-size: 35px;
+      }
+
+      .subtitle {
+        max-width: 265px;
+        font-size: 14px;
+      }
+
+      .toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .filters {
+        width: 100%;
+      }
+
+      .filter {
+        flex: 1 1 38px;
+        padding: 0 8px;
+      }
+
+      .answer-toggle {
+        width: 100%;
+      }
+
+      .tables {
+        gap: 10px;
+      }
+
+      .card-heading {
+        padding: 13px 12px;
+      }
+
+      .equations {
+        padding: 8px 12px 10px;
+      }
+
+      .equation {
+        font-size: 13px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">MATH PLAYGROUND</p>
+        <h1>구구단 놀이터 <span aria-hidden="true">✦</span></h1>
+        <p class="subtitle">하나씩 살펴보고, 가리고 맞혀 보면서<br>구구단을 재미있게 익혀 봐요!</p>
+      </div>
+      <div class="hero-emoji" aria-hidden="true">🧮</div>
+    </header>
+
+    <nav class="toolbar" aria-label="구구단 보기 설정">
+      <div class="filters" role="group" aria-label="단 선택">
+        <button class="filter" type="button" data-table="all" aria-pressed="true">전체</button>
+        <button class="filter" type="button" data-table="2" aria-pressed="false">2단</button>
+        <button class="filter" type="button" data-table="3" aria-pressed="false">3단</button>
+        <button class="filter" type="button" data-table="4" aria-pressed="false">4단</button>
+        <button class="filter" type="button" data-table="5" aria-pressed="false">5단</button>
+        <button class="filter" type="button" data-table="6" aria-pressed="false">6단</button>
+        <button class="filter" type="button" data-table="7" aria-pressed="false">7단</button>
+        <button class="filter" type="button" data-table="8" aria-pressed="false">8단</button>
+        <button class="filter" type="button" data-table="9" aria-pressed="false">9단</button>
+      </div>
+      <button class="answer-toggle" type="button" aria-pressed="false">정답 가리기</button>
+    </nav>
+
+    <section aria-labelledby="tables-title">
+      <div class="section-heading">
+        <h2 id="tables-title">구구단 한눈에 보기</h2>
+        <p class="hint">2단부터 9단까지, 곱하는 수는 1부터 9까지예요.</p>
+      </div>
+      <div class="tables" id="tables" aria-live="polite"></div>
+    </section>
+
+    <p class="footer-note">천천히 읽고 따라 하다 보면 어느새 구구단 완성! 🌱</p>
+  </main>
+
+  <script>
+    const tablesElement = document.querySelector("#tables");
+    const filterButtons = document.querySelectorAll(".filter");
+    const answerToggle = document.querySelector(".answer-toggle");
+    let selectedTable = "all";
+    let answersHidden = false;
+
+    function renderTables() {
+      const tables = selectedTable === "all"
+        ? Array.from({ length: 8 }, (_, index) => index + 2)
+        : [Number(selectedTable)];
+
+      tablesElement.replaceChildren();
+      tablesElement.classList.toggle("answers-hidden", answersHidden);
+
+      for (const number of tables) {
+        const card = document.createElement("article");
+        card.className = "table-card";
+        card.setAttribute("aria-label", `${number}단`);
+
+        const heading = document.createElement("div");
+        heading.className = "card-heading";
+
+        const title = document.createElement("h3");
+        title.textContent = `${number}단`;
+
+        const caption = document.createElement("span");
+        caption.textContent = "차근차근 외워 봐요";
+        heading.append(title, caption);
+
+        const equations = document.createElement("div");
+        equations.className = "equations";
+
+        for (let multiplier = 1; multiplier <= 9; multiplier += 1) {
+          const equation = document.createElement("div");
+          equation.className = "equation";
+
+          const question = document.createElement("span");
+          question.textContent = `${number} × ${multiplier}`;
+
+          const answer = document.createElement("strong");
+          answer.textContent = String(number * multiplier);
+          answer.setAttribute("aria-label", `${number} 곱하기 ${multiplier}는 ${number * multiplier}`);
+
+          equation.append(question, answer);
+          equations.append(equation);
+        }
+
+        card.append(heading, equations);
+        tablesElement.append(card);
+      }
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectedTable = button.dataset.table;
+        filterButtons.forEach((filter) => {
+          filter.setAttribute("aria-pressed", String(filter === button));
+        });
+        renderTables();
+      });
+    });
+
+    answerToggle.addEventListener("click", () => {
+      answersHidden = !answersHidden;
+      answerToggle.setAttribute("aria-pressed", String(answersHidden));
+      answerToggle.textContent = answersHidden ? "정답 보기" : "정답 가리기";
+      renderTables();
+    });
+
+    renderTables();
+  </script>
+</body>
+</html>
