@@ -1,0 +1,35 @@
+<!DOCTYPE html> <!-- HTML 문서의 종류를 선언합니다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정합니다. -->
+<head> <!-- 문서 설정을 시작합니다. -->
+  <meta charset="UTF-8"> <!-- 한글 문자가 깨지지 않도록 인코딩을 설정합니다. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면 너비에 맞춥니다. -->
+  <title>간단한 계산기</title> <!-- 브라우저 탭에 표시할 제목입니다. -->
+  <link rel="preload" as="image" href="cat.jpg"> <!-- 계산기 배경 고양이 사진을 미리 불러옵니다. -->
+  <link rel="stylesheet" href="style.css"> <!-- 계산기 스타일 파일을 연결합니다. -->
+  <script src="script.js" defer></script> <!-- 계산기 동작 파일을 HTML 해석 후 실행합니다. -->
+</head> <!-- 문서 설정을 마칩니다. -->
+<body> <!-- 화면에 보이는 내용을 시작합니다. -->
+  <main class="calculator"> <!-- 계산기 전체를 담습니다. -->
+    <h1>계산기</h1> <!-- 계산기 제목을 표시합니다. -->
+    <output id="display" aria-live="polite">0</output> <!-- 현재 숫자와 계산 결과를 표시합니다. -->
+    <div class="buttons" aria-label="계산기 버튼"> <!-- 숫자와 연산 버튼을 묶습니다. -->
+      <button class="clear" data-action="clear" type="button">Clear</button> <!-- 모든 입력과 계산을 지웁니다. -->
+      <button class="operator" data-operator="/" type="button">÷</button> <!-- 나누기 연산을 선택합니다. -->
+      <button class="operator" data-operator="*" type="button">×</button> <!-- 곱하기 연산을 선택합니다. -->
+      <button class="operator" data-operator="-" type="button">−</button> <!-- 빼기 연산을 선택합니다. -->
+      <button data-digit="7" type="button">7</button> <!-- 숫자 7을 입력합니다. -->
+      <button data-digit="8" type="button">8</button> <!-- 숫자 8을 입력합니다. -->
+      <button data-digit="9" type="button">9</button> <!-- 숫자 9를 입력합니다. -->
+      <button class="operator" data-operator="+" type="button">+</button> <!-- 더하기 연산을 선택합니다. -->
+      <button data-digit="4" type="button">4</button> <!-- 숫자 4를 입력합니다. -->
+      <button data-digit="5" type="button">5</button> <!-- 숫자 5를 입력합니다. -->
+      <button data-digit="6" type="button">6</button> <!-- 숫자 6을 입력합니다. -->
+      <button class="equals" data-action="equals" type="button">=</button> <!-- 선택한 계산을 실행합니다. -->
+      <button data-digit="1" type="button">1</button> <!-- 숫자 1을 입력합니다. -->
+      <button data-digit="2" type="button">2</button> <!-- 숫자 2를 입력합니다. -->
+      <button data-digit="3" type="button">3</button> <!-- 숫자 3을 입력합니다. -->
+      <button data-digit="0" type="button">0</button> <!-- 숫자 0을 입력합니다. -->
+    </div> <!-- 버튼 묶음을 마칩니다. -->
+  </main> <!-- 계산기 화면을 마칩니다. -->
+</body> <!-- 화면 내용을 마칩니다. -->
+</html> <!-- HTML 문서를 마칩니다. -->

@@ -1,0 +1,12 @@
+* { box-sizing: border-box; } /* 크기 계산을 간단하고 일정하게 만듭니다. */
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #eef2f7; font-family: sans-serif; } /* 계산기를 화면 가운데에 배치합니다. */
+.calculator { position: relative; width: min(320px, calc(100vw - 32px)); padding: 20px; border-radius: 16px; background: linear-gradient(#ffffffbb, #ffffffbb), url("cat.jpg") center / cover no-repeat; box-shadow: 0 8px 24px #17203322; } /* 실제 고양이 사진을 계산기 내부 배경으로 표시합니다. */
+h1 { margin: 0 0 16px; font-size: 22px; text-align: center; } /* 제목의 여백과 모양을 지정합니다. */
+#display { width: 100%; height: 64px; margin-bottom: 12px; padding: 12px; border: 1px solid #d5dbe5; border-radius: 8px; background: #f8fafc; font-size: 28px; text-align: right; } /* 계산 결과가 보이는 칸을 꾸밉니다. */
+.buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } /* 버튼을 네 칸 격자로 배치합니다. */
+button { min-height: 52px; border: 0; border-radius: 8px; background: #e8edf5; font-size: 20px; cursor: pointer; } /* 숫자 버튼의 공통 모양을 지정합니다. */
+button:hover { background: #dce4ef; } /* 마우스를 올린 버튼을 구분합니다. */
+button:focus-visible { outline: 3px solid #4f7cff; outline-offset: 2px; } /* 키보드로 선택된 버튼을 표시합니다. */
+.operator { background: #dbe7ff; } /* 사칙연산 버튼을 구분합니다. */
+.clear { background: #ffe3e3; } /* 지우기 버튼을 구분합니다. */
+.equals { background: #4f7cff; color: #ffffff; } /* 계산 버튼을 강조합니다. */
